@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Employee Management</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Employee Management</h1>
+
+
+        <!-- ADD EMPLOYEE -->
+
+        <div class="form-container">
+
+            <h2>Add Employee</h2>
+
+            <form id="employeeForm">
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter employee name"
+                    required
+                >
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter employee email"
+                    required
+                >
+
+                <input
+                    type="number"
+                    id="salary"
+                    placeholder="Enter salary"
+                    required
+                >
+
+                <button type="submit">
+                    Add Employee
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- EMPLOYEE TABLE -->
+
+        <div class="table-container">
+
+            <h2>Employee List</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Name</th>
+
+                        <th>Email</th>
+
+                        <th>Salary</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="employeeTableBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <script src="js/employee.js"></script>
+
+</body>
+
+</html>

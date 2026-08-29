@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Student Management</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Student Management</h1>
+
+
+        <!-- ADD STUDENT -->
+
+        <div class="form-container">
+
+            <h2>Add Student</h2>
+
+            <form id="studentForm">
+
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter student name"
+                    required
+                >
+
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter student email"
+                    required
+                >
+
+
+                <input
+                    type="text"
+                    id="course"
+                    placeholder="Enter course"
+                    required
+                >
+
+
+                <input
+                    type="number"
+                    id="age"
+                    placeholder="Enter age"
+                    required
+                >
+
+
+                <button type="submit">
+                    Add Student
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- STUDENT TABLE -->
+
+        <div class="table-container">
+
+            <h2>Student List</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Name</th>
+
+                        <th>Email</th>
+
+                        <th>Course</th>
+
+                        <th>Age</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="studentTableBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <script src="js/student.js"></script>
+
+</body>
+
+</html>
