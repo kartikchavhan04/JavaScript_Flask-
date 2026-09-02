@@ -1,212 +1,59 @@
-// =====================================================
-// BACKEND URL
-// =====================================================
-
 const API_URL = "http://127.0.0.1:5000";
+$(function () {
+    const employeeId = new URLSearchParams(window.location.search).get("id");
 
+    if (!employeeId) {
+        alert("Employee ID is missing");
+        window.location.href = "employee.html";
+        return;
+    }
 
-// =====================================================
-// GET EMPLOYEE ID FROM URL
-// =====================================================
-
-const urlParams =
-    new URLSearchParams(
-        window.location.search
-    );
-
-
-const employeeId =
-    urlParams.get("id");
-
-
-// =====================================================
-// CHECK EMPLOYEE ID
-// =====================================================
-
-if (!employeeId) {
-
-    alert("Employee ID is missing");
-
-    window.location.href =
-        "employee.html";
-
-}
-
-
-// =====================================================
-// GET EMPLOYEE BY ID
-// =====================================================
-
-function getEmployee() {
-
-    fetch(
-        `${API_URL}/employees/${employeeId}`
-    )
-
-        .then(response => {
-
-            if (!response.ok) {
-
-                throw new Error(
-                    "Employee not found"
-                );
-
-            }
-
-            return response.json();
-
+    function getEmployee() {
+        $.ajax({
+            url: `${API_URL}/employees/${employeeId}`,
+            method: "GET",
+            dataType: "json"
         })
-
-        .then(employee => {
-
-
-            // Put existing data into form
-
-            document.getElementById("name").value =
-                employee.name;
-
-
-            document.getElementById("email").value =
-                employee.email;
-
-
-            document.getElementById("salary").value =
-                employee.salary;
-
-        })
-
-        .catch(error => {
-
-            console.error(error);
-
-            alert(
-                "Unable to load employee"
-            );
-
-        });
-}
-
-
-// =====================================================
-// UPDATE EMPLOYEE
-// =====================================================
-
-document
-    .getElementById("updateEmployeeForm")
-    .addEventListener(
-        "submit",
-        function(event) {
-
-            event.preventDefault();
-
-
-            const name =
-                document.getElementById(
-                    "name"
-                ).value;
-
-
-            const email =
-                document.getElementById(
-                    "email"
-                ).value;
-
-
-            const salary =
-                document.getElementById(
-                    "salary"
-                ).value;
-
-
-            const employeeData = {
-
-                name: name,
-
-                email: email,
-
-                salary: Number(salary)
-
-            };
-
-
-            fetch(
-                `${API_URL}/employees/${employeeId}`,
-                {
-
-                    method: "PUT",
-
-                    headers: {
-
-                        "Content-Type":
-                            "application/json"
-
-                    },
-
-                    body:
-                        JSON.stringify(
-                            employeeData
-                        )
-
-                }
-            )
-
-            .then(response => {
-
-                if (!response.ok) {
-
-                    throw new Error(
-                        "Failed to update employee"
-                    );
-
-                }
-
-                return response.json();
-
+            .done(function (employee) {
+                $("#name").val(employee.name);
+                $("#email").val(employee.email);
+                $("#salary").val(employee.salary);
             })
-
-            .then(data => {
-
-                alert(
-                    data.message ||
-                    "Employee updated successfully"
-                );
-
-
-                // Go back to employee table
-
-                window.location.href =
-                    "employee.html";
-
-            })
-
-            .catch(error => {
-
+            .fail(function (xhr, status, error) {
                 console.error(error);
-
-                alert(
-                    "Unable to update employee"
-                );
-
+                alert("Unable to load employee");
             });
+    }
 
-        }
-    );
+    $("#updateEmployeeForm").on("submit", function (event) {
+        event.preventDefault();
 
+        const employeeData = {
+            name: $("#name").val(),
+            email: $("#email").val(),
+            salary: Number($("#salary").val())
+        };
 
-// =====================================================
-// CANCEL
-// =====================================================
+        $.ajax({
+            url: `${API_URL}/employees/${employeeId}`,
+            method: "PUT",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(employeeData)
+        })
+            .done(function (data) {
+                alert(data.message || "Employee updated successfully");
+                window.location.href = "employee.html";
+            })
+            .fail(function (xhr, status, error) {
+                console.error(error);
+                alert("Unable to update employee");
+            });
+    });
+
+    getEmployee();
+});
 
 function goBack() {
-
-    window.location.href =
-        "employee.html";
-
+    window.location.href = "employee.html";
 }
-
-
-// =====================================================
-// LOAD EXISTING EMPLOYEE
-// =====================================================
-
-getEmployee();
